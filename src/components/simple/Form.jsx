@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import style from './form.module.css';
 
 const initialState = {
@@ -87,11 +87,13 @@ export const SimpleForm = () => {
 
 			compereValue(password, value);
 		}
+	};
 
+	useEffect(() => {
 		if (submitBtnRef.current) {
 			submitBtnRef.current.focus();
 		}
-	};
+	});
 
 	// const onBlur = ({target}) => {
 	// }

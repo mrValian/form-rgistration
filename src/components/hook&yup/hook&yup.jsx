@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -49,9 +49,11 @@ export const HookAndYup = () => {
 	const passwordError = errors.password?.message;
 	const passwordRepError = errors.passwordRep?.message;
 
-	if (submitBtnRef.current) {
-		submitBtnRef.current.focus();
-	}
+	useEffect(() => {
+		if (submitBtnRef.current) {
+			submitBtnRef.current.focus();
+		}
+	});
 
 	return (
 		<>
