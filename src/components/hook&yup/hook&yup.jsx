@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -29,6 +30,8 @@ const fieldsSchema = yup.object().shape({
 });
 
 export const HookAndYup = () => {
+	const submitBtnRef = useRef(null);
+
 	const {
 		register,
 		handleSubmit,
@@ -45,6 +48,10 @@ export const HookAndYup = () => {
 	const emailError = errors.email?.message;
 	const passwordError = errors.password?.message;
 	const passwordRepError = errors.passwordRep?.message;
+
+	if (submitBtnRef.current) {
+		submitBtnRef.current.focus();
+	}
 
 	return (
 		<>
@@ -68,7 +75,9 @@ export const HookAndYup = () => {
 					/>
 				</div>
 				<div>
-					{passwordRepError && <div className={style.error}>{passwordRepError}</div>}
+					{passwordRepError && (
+						<div className={style.error}>{passwordRepError}</div>
+					)}
 					<input
 						type="text"
 						name="repeatPassword"
@@ -77,6 +86,7 @@ export const HookAndYup = () => {
 					/>
 				</div>
 				<input
+					ref={submitBtnRef}
 					type="submit"
 					value="Send"
 					disabled={!(!emailError && !passwordError && !passwordRepError)}

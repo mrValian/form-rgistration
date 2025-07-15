@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import style from './form.module.css';
 
 const initialState = {
@@ -23,14 +23,15 @@ const sendData = (formData) => {
 };
 
 export const SimpleForm = () => {
-
 	const { getState, updateState } = useStore();
 
 	const [emailValid, setEmailValid] = useState(true);
 	const [emailError, setEmailError] = useState('');
- 	const [areEqual, setAreEqual] = useState(true);
+	const [areEqual, setAreEqual] = useState(true);
 	const [passwordError, setPasswordError] = useState('');
 	const [repPasswordError, setRepPasswordError] = useState('');
+
+	const submitBtnRef = useRef(null);
 
 	const onSubmit = (event) => {
 		event.preventDefault();
@@ -83,9 +84,12 @@ export const SimpleForm = () => {
 			} else {
 				setRepPasswordError('');
 			}
-			
 
 			compereValue(password, value);
+		}
+
+		if (submitBtnRef.current) {
+			submitBtnRef.current.focus();
 		}
 	};
 
@@ -106,7 +110,9 @@ export const SimpleForm = () => {
 					/>
 				</div>
 				<div>
-					{passwordError !== '' && <div className={style.error}>{passwordError}</div>}
+					{passwordError !== '' && (
+						<div className={style.error}>{passwordError}</div>
+					)}
 					<input
 						type="text"
 						name="password"
@@ -116,7 +122,9 @@ export const SimpleForm = () => {
 					/>
 				</div>
 				<div>
-					{repPasswordError !== '' && <div className={style.error}>{repPasswordError}</div>}
+					{repPasswordError !== '' && (
+						<div className={style.error}>{repPasswordError}</div>
+					)}
 					<input
 						type="text"
 						name="repeatPassword"
@@ -126,7 +134,13 @@ export const SimpleForm = () => {
 						// onBlur={onBlur}
 					/>
 				</div>
-				<input type="submit" value="Send" disabled={!(!emailValid && !areEqual)} />
+				<button
+					ref={submitBtnRef}
+					type="submit"
+					disabled={!(!emailValid && !areEqual)}
+				>
+					Send
+				</button>
 			</form>
 		</>
 	);

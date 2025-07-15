@@ -1,6 +1,6 @@
 // import { useState } from 'react';
-import { SimpleForm } from './components/simple/Form';
-import { HookAndYup } from './hook&yup/hook&yup';
+// import { SimpleForm } from './components/simple/Form';
+import { HookAndYup } from './components/hook&yup/hook&yup';
 
 import style from './app.module.css';
 
